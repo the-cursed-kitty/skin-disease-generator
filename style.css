@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #72EDF2 10%, #5151E5 100%);
+    color: #333;
+}
+
+h1 {
+    margin-top: 50px;
+    font-size: 36px;
+    color: #fff;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#dropArea {
+    margin-top: 20px;
+    padding: 50px;
+    border: 2px dashed #ccc;
+    border-radius: 10px;
+    text-align: center;
+    background: #f9f9f9;
+}
+
+#dropArea p {
+    margin: 0;
+    font-size: 16px;
+    color: #666;
+}
+
+#fileInput {
+    display: none;
+}
+
+#uploadedImage {
+    max-width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #5151E5;
+    color: #fff;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #4141C5;
+}
+
+h2 {
+    margin-top: 30px;
+    font-size: 24px;
+}
+
+#resultBox {
+    display: none;
+    margin-top: 20px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.info-box {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#result {
+    font-size: 20px;
+    color: #5151E5;
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skin Lesion Classifier</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Skin Lesion Classifier</h1>
+    <form id="uploadForm" enctype="multipart/form-data">
+        <div id="dropArea">
+            <input type="file" name="file" id="fileInput" required>
+            <p>Drag & Drop an image here or click to select a file.</p>
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="resultBox">
+        <img id="uploadedImage" alt="Uploaded Image">
+        <h2>Prediction: <span id="result"></span></h2>
+        <div class="info-box" id="infoBox"></div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const uploadForm = document.getElementById('uploadForm');
+        const dropArea = document.getElementById('dropArea');
+        const resultBox = document.getElementById('resultBox');
+        const uploadedImage = document.getElementById('uploadedImage');
+        const result = document.getElementById('result');
+        const infoBox = document.getElementById('infoBox');
+
+        fileInput.addEventListener('change', (event) => {
+            displayImage(fileInput.files[0]);
+        });
+
+        dropArea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dropArea.style.border = '2px dashed #5151E5';
+        });
+
+        dropArea.addEventListener('dragleave', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dropArea.style.border = '2px dashed #ccc';
+        });
+
+        dropArea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            dropArea.style.border = '2px dashed #ccc';
+            const files = event.dataTransfer.files;
+            if (files.length) {
+                fileInput.files = files;
+                displayImage(files[0]);
+            }
+        });
+
+        uploadForm.onsubmit = async (event) => {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            const response = await fetch('/predict', {
+                method: 'POST',
+                body: formData
+            });
+
+            const resultData = await response.json();
+            resultBox.style.display = 'block';
+            result.innerText = resultData.prediction;
+
+            // Fetch additional information
+            const infoResponse = await fetch(`/get_info/${resultData.prediction}`);
+            const infoData = await infoResponse.json();
+            displayInfo(infoData.info);
+        };
+
+        function displayImage(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                uploadedImage.src = e.target.result;
+            }
+            reader.readAsDataURL(file);
+            resultBox.style.display = 'none'; // Hide the result box when a new image is selected
+        }
+
+        function displayInfo(infoData) {
+            infoBox.innerHTML = `
+                <h3>Information</h3>
+                <p>${infoData}</p>
+            `;
+        }
+    </script>
+</body>
+</html>
