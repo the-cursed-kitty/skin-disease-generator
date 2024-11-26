@@ -9,6 +9,10 @@
 <body>
     <h1>Skin Lesion Classifier</h1>
     <form id="uploadForm" enctype="multipart/form-data">
+        <div id="addFile"></div>
+            <button type="button" onclick="document.getElementById('fileInput').click()">Add File</button>
+        </div>
+        </div>
         <div id="dropArea">
             <input type="file" name="file" id="fileInput" required>
             <p>Drag & Drop an image here or click to select a file.</p>
@@ -17,8 +21,13 @@
     </form>
     <div id="resultBox">
         <img id="uploadedImage" alt="Uploaded Image">
-        <h2>Prediction: <span id="result"></span></h2>
-        <div class="info-box" id="infoBox"></div>
+        <h2>
+            Prediction:
+             <span id="result">
+
+             </span>
+             <div class="info-box" id="infoBox"></div>
+            </h2>
     </div>
 
     <script>
